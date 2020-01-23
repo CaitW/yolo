@@ -79,7 +79,7 @@ fi
 
 case $COLOR in
   red)
-    BACKGROUND="#FFFFFF"
+    BACKGROUND="#ffffff"
     FILL="#8c2738"
     ;;
   orange)
@@ -133,7 +133,9 @@ convert -resize x128 "./tmp/${PREFIX}_label.png" "./tmp/${PREFIX}_sized.png"
 WIDTH="$(identify -format "%[fx:w]" "./tmp/${PREFIX}_sized.png")"
 CANVAS_SIZE=$(($WIDTH + 276)) # 128 PX in front, 148 in back
 convert -size ${CANVAS_SIZE}x128 "xc:$BACKGROUND" "./tmp/${PREFIX}_canvas.png"
-convert "./tmp/${PREFIX}_canvas.png" "./tmp/${PREFIX}_sized.png" -geometry +128+0 -composite "./tmp/${PREFIX}_padded.png"
+
+
+magick composite "./tmp/${PREFIX}_sized.png" "./tmp/${PREFIX}_canvas.png" -geometry +128+0 -colorspace RGB "./tmp/${PREFIX}_padded.png"
 
 # Generate individual frames
 OFFSET=0
@@ -149,7 +151,7 @@ done
 convert -delay 6 -loop 0 +repage "./tmp/${PREFIX}_frame_*.png" "$OUTPUT" 
 
 # Smush it
-gifsicle -bO "$OUTPUT"
+gifsicle -bO --colors 256 "$OUTPUT"
 
 # Clean up!
-rm /tmp/${PREFIX}_*.png
+rm ./tmp/${PREFIX}_*.png
