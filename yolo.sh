@@ -124,29 +124,29 @@ fi
 PREFIX="$(head -c 32 /dev/urandom  | shasum | cut -b 1-10)"
 
 # Generate image from text input
-convert -background "$BACKGROUND" -fill "$FILL" -font "$FONT_PATH" -density 200 -pointsize 100 "label:${MESSAGE}" "/tmp/${PREFIX}_label.png"
+convert -background "$BACKGROUND" -fill "$FILL" -font "$FONT_PATH" -density 200 -pointsize 100 "label:${MESSAGE}" "./tmp/${PREFIX}_label.png"
 
 # Resize to 128px high
-convert -resize x128 "/tmp/${PREFIX}_label.png" "/tmp/${PREFIX}_sized.png"
+convert -resize x128 "./tmp/${PREFIX}_label.png" "./tmp/${PREFIX}_sized.png"
 
 # Add white space to front and back for empty frames
-WIDTH="$(identify -format "%[fx:w]" "/tmp/${PREFIX}_sized.png")"
+WIDTH="$(identify -format "%[fx:w]" "./tmp/${PREFIX}_sized.png")"
 CANVAS_SIZE=$(($WIDTH + 276)) # 128 PX in front, 148 in back
-convert -size ${CANVAS_SIZE}x128 "xc:$BACKGROUND" "/tmp/${PREFIX}_canvas.png"
-convert "/tmp/${PREFIX}_canvas.png" "/tmp/${PREFIX}_sized.png" -geometry +128+0 -composite "/tmp/${PREFIX}_padded.png"
+convert -size ${CANVAS_SIZE}x128 "xc:$BACKGROUND" "./tmp/${PREFIX}_canvas.png"
+convert "./tmp/${PREFIX}_canvas.png" "./tmp/${PREFIX}_sized.png" -geometry +128+0 -composite "./tmp/${PREFIX}_padded.png"
 
 # Generate individual frames
 OFFSET=0
 I=0
 LIMIT=$(($CANVAS_SIZE - 128))
 while [ $OFFSET -lt $LIMIT ]; do
-  convert "/tmp/${PREFIX}_padded.png" -crop "128x128+${OFFSET}+0!" "$(printf "/tmp/${PREFIX}_frame_%05d.png" $I)"
+  convert "./tmp/${PREFIX}_padded.png" -crop "128x128+${OFFSET}+0!" "$(printf "./tmp/${PREFIX}_frame_%05d.png" $I)"
   I=$(($I + 1))
   OFFSET=$(($OFFSET + 10))
 done
 
 # Compile to gif
-convert -delay 6 -loop 0 +repage "/tmp/${PREFIX}_frame_*.png" "$OUTPUT" 
+convert -delay 6 -loop 0 +repage "./tmp/${PREFIX}_frame_*.png" "$OUTPUT" 
 
 # Smush it
 gifsicle -bO "$OUTPUT"
