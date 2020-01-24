@@ -134,7 +134,6 @@ WIDTH="$(identify -format "%[fx:w]" "./tmp/${PREFIX}_sized.png")"
 CANVAS_SIZE=$(($WIDTH + 276)) # 128 PX in front, 148 in back
 convert -size ${CANVAS_SIZE}x128 "xc:$BACKGROUND" "./tmp/${PREFIX}_canvas.png"
 
-
 magick composite "./tmp/${PREFIX}_sized.png" "./tmp/${PREFIX}_canvas.png" -geometry +128+0 -colorspace RGB "./tmp/${PREFIX}_padded.png"
 
 # Generate individual frames
