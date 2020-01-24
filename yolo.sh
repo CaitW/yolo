@@ -150,7 +150,7 @@ done
 convert -delay 6 -loop 0 +repage "./tmp/${PREFIX}_frame_*.png" "$OUTPUT" 
 
 # Smush it
-gifsicle -bO --colors 256 "$OUTPUT"
+gifsicle -b -O1 --colors 256 "$OUTPUT"
 
 # Clean up!
 rm ./tmp/${PREFIX}_*.png
