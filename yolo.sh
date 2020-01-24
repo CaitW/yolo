@@ -123,6 +123,8 @@ fi
 # Make a "unique" prefix for this run
 PREFIX="$(head -c 32 /dev/urandom  | shasum | cut -b 1-10)"
 
+mkdir tmp
+
 # Generate image from text input
 convert -background "$BACKGROUND" -fill "$FILL" -font "$FONT_PATH" -density 200 -pointsize 100 "label:${MESSAGE}" "./tmp/${PREFIX}_label.png"
 
@@ -152,5 +154,7 @@ convert -delay 6 -loop 0 +repage "./tmp/${PREFIX}_frame_*.png" "$OUTPUT"
 # Smush it
 gifsicle -b -O1 --colors 256 "$OUTPUT"
 
+mv $OUTPUT output
+
 # Clean up!
-rm ./tmp/${PREFIX}_*.png
+rm -rf tmp
