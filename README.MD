@@ -22,4 +22,4 @@ usage: `yolo.sh [options] <message>`
 sh yolo.sh -o test.gif -c blue hello
 ```
 
-creates a scrolly blue text that says "hello" in a file called `test.gif`
+creates a scrolly blue text that says "hello" in a file called `test.gif` in `/output`
