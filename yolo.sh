@@ -6,6 +6,11 @@ if [ "$FONT_PATH" == "" ]; then
   FONT_PATH="$(find /Library/Fonts/ -name 'Roboto-Bold.ttf')"
 fi
 
+VALID_COLORS=("red" "orange" "yellow" "green" "blue" "purple" "pink" "black" "white")
+COLOR="blue"
+OUTPUT="yolo.gif"
+FORCE_WHITE_TEXT=0
+
 contains () {
   local e
   for e in "${@:2}"; do [[ "$e" == "$1" ]] && return 0; done
@@ -35,11 +40,6 @@ usage () {
 if [ "$FONT_PATH" == "" ]; then
   usage "Could not find font. Is it installed?"
 fi
-
-VALID_COLORS=("red" "orange" "yellow" "green" "blue" "purple" "pink" "black" "white")
-COLOR="blue"
-OUTPUT="yolo.gif"
-FORCE_WHITE_TEXT=0
 
 while getopts ":c:o:hw" opt; do
   case $opt in
