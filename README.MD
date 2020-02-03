@@ -4,6 +4,7 @@ I stole this from [the internet](https://gist.github.com/jmhobbs/b6ba8f5d1f81650
 
 # Install
 `imagemagick brew install imagemagick`
+
 `gifsicle brew install gifsicle`
 
 I've only tried this on a mac
