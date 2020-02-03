@@ -3,9 +3,9 @@
 I stole this from [the internet](https://gist.github.com/jmhobbs/b6ba8f5d1f816506e5b671c1bd89c723)
 
 # Install
-`imagemagick brew install imagemagick`
+imagemagick `brew install imagemagick`
 
-`gifsicle brew install gifsicle`
+gifsicle `brew install gifsicle`
 
 I've only tried this on a mac
 
